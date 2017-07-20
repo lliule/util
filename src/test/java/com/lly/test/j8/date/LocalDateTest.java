@@ -1,4 +1,4 @@
-package com.lly.test;
+package com.lly.test.j8.date;
 
 import com.lly.util.TimeUtil;
 import org.junit.Test;
@@ -44,9 +44,9 @@ public class LocalDateTest {
         out.println(plus);*/
 
         /*out.println(now.isAfter(tomorrow));
-        out.println(now.isLeapYear());//ÊÇ·ñÊÇÈòÄê
+        out.println(now.isLeapYear());//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        out.println(Instant.now().atZone(ZoneOffset.ofHours(8)));//»ñÈ¡±¾µØÊ±¼ä´Á
+        out.println(Instant.now().atZone(ZoneOffset.ofHours(8)));//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½
 
         out.println(Clock.system(ZoneId.of(ZoneId.SHORT_IDS.get("CTT"))).instant());
 

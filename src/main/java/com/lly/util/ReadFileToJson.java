@@ -20,7 +20,7 @@ public class ReadFileToJson {
         ArrayList<String> list = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            String s  =null;
+            String s ;
             while((s= reader.readLine())!= null){
                 try {
                     result += s;
@@ -47,7 +47,7 @@ public class ReadFileToJson {
         String result = "";
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            String s  =null;
+            String s ;
             while((s= reader.readLine())!= null){
                 try {
                     result += s;
