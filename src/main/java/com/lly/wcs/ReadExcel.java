@@ -1,4 +1,4 @@
-package com.lly.util;
+package com.lly.wcs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lly.common.HttpRequest;
@@ -24,7 +24,7 @@ public class ReadExcel {
      */
     @Test
     public void testReadExcel() throws IOException, InvalidFormatException {
-        String filePath = "C:/Users/Administrator/Desktop/审核/201706281024";
+        String filePath = "C:/Users/Administrator/Desktop/审核/0704";
         ArrayList<Long> brand = new ArrayList<>();
         ArrayList<Long> price = new ArrayList<>();
         ArrayList<Map> msg = new ArrayList<>();
@@ -122,6 +122,7 @@ public class ReadExcel {
         request(priceParamResult);
 
         out.println("众包完成");
+
     }
 
 
