@@ -2,13 +2,9 @@ package com.lly.test;
 
 import org.junit.Test;
 
-import java.io.Console;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import static java.lang.System.out;
-import static java.lang.System.*;
 
 public class SystemTest {
 

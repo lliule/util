@@ -80,7 +80,7 @@
         </dependency>
 
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.weichaishi.jpush.api</groupId>
             <artifactId>api.jpush.weichaishi</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -102,7 +102,7 @@
                     <artifactId>javax.servlet-api</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 
