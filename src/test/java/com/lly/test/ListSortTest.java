@@ -54,6 +54,29 @@ public class ListSortTest {
 //        114484589 101012481 95567480
 
     }
+
+    @Test
+    public void listAscTest(){
+        List<User> userList = getUserList();
+        System.out.println(userList);
+        userList.sort((o1, o2) -> o2.getId() - o1.getId());
+        System.out.println(Arrays.toString(userList.toArray()));
+    }
+
+
+    private List<User> getUserList(){
+        User[] users = new User[10];
+        for(int i=0;i<5;i++){ // 5个在线主播，热度随机
+            User user = new User(i,1, new Random().nextInt(10));
+            users[i] = user;
+        }
+        for(int i=5;i<10;i++){//5个不在线
+            User user = new User(i,0, new Random().nextInt(10));
+            users[i] = user;
+        }
+        return Arrays.asList(users);
+    }
+
 }
 
 
@@ -65,6 +88,13 @@ class User{
         this.status = status;
     }
 
+    public User(int id, int online, int status) {
+        this.id = id;
+        this.online = online;
+        this.status = status;
+    }
+
+    private int id;
     private int online;
     private int status;
 
@@ -84,10 +114,19 @@ class User{
         this.status = status;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "online=" + online +
+                "id=" + id +
+                ", online=" + online +
                 ", status=" + status +
                 '}';
     }
