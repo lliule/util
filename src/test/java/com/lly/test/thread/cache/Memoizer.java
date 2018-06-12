@@ -6,6 +6,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 完全版的高并发缓存
+ *  但是对于缓存的对象可以还可以优化。
+ *  value存储值好过于存储一个futureTask
+ * @param <A>
+ * @param <V>
+ */
 public class Memoizer<A,V> implements Computable<A,V> {
     private Map<A,FutureTask<V>> cache = new ConcurrentHashMap<>();
     private Computable<A,V> c;

@@ -2,7 +2,6 @@ package com.lly.test.thread.cache;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 
 /**
  * ConcurrentHashMap是线程同步的，使用它就不用对compute加synchronized
