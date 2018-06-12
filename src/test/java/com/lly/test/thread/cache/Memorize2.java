@@ -2,6 +2,7 @@ package com.lly.test.thread.cache;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * ConcurrentHashMap是线程同步的，使用它就不用对compute加synchronized
@@ -20,7 +21,7 @@ public class Memorize2<A,V> implements Computable<A,V> {
     }
 
     @Override
-    public V compute(A arg) {
+    public V compute(A arg) throws Exception {
         V result = cache.get(arg);
         if(result == null){
             result = c.compute(arg);

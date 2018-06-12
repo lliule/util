@@ -1,6 +1,7 @@
 package com.lly.test.thread.cache;
 
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * hashMap不是线程安全的，所以compute使用了synchronized来同步方法，
@@ -18,7 +19,7 @@ public class Momorize1<A,V> implements Computable<A,V> {
     }
 
     @Override
-    public synchronized V compute(A arg) {
+    public synchronized V compute(A arg) throws Exception {
         V result = cache.get(arg);
         if(result == null){
            result = c.compute(arg);
