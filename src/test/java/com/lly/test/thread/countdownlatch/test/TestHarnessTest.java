@@ -1,6 +1,6 @@
-package com.lly.test.thread.test;
+package com.lly.test.thread.countdownlatch.test;
 
-import com.lly.test.thread.TestHarnes;
+import com.lly.test.thread.countdownlatch.TestHarnes;
 import org.junit.Test;
 
 public class TestHarnessTest {

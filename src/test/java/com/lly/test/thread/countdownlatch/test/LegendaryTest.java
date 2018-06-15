@@ -1,6 +1,6 @@
-package com.lly.test.thread.test;
+package com.lly.test.thread.countdownlatch.test;
 
-import com.lly.test.thread.Legendary;
+import com.lly.test.thread.countdownlatch.Legendary;
 import org.junit.Test;
 
 public class LegendaryTest {
