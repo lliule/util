@@ -99,6 +99,15 @@
             <version>1.7.25</version>
         </dependency>
 
+        <!--javadoc 解析依赖-->
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
+
+
     </dependencies>
 
 
