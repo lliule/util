@@ -12,12 +12,18 @@ public class JsonTest {
     }
 
 
+    /**
+     *fastJson 对象转String能自动忽略Null属性
+     * {"age":27,"id":1,"name":"dana"}
+     * 没有Sex:null
+     */
     @Test
     public void testToStringIgnoreNull(){
         User user = new User();
         user.setId(1);
         user.setAge(27);
         user.setName("dana");
+//        user.setSex("male");
         String userString = JSON.toJSONString(user);
         System.out.println(userString);
     }
