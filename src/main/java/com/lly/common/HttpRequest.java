@@ -1,18 +1,24 @@
 package com.lly.common;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
@@ -21,7 +27,7 @@ import static java.lang.System.out;
 public class HttpRequest {
 
 
-    // todo Á¬½Ó³Ø
+    // todo è¿žæŽ¥æ± 
 
     private CloseableHttpClient httpClient;
     private CloseableHttpClient getHttpClient(){
@@ -63,7 +69,7 @@ public class HttpRequest {
         httpPost.setEntity(urlEncodedFormEntity);
         CloseableHttpResponse httpResponse = null;
         try {
-             httpResponse = httpClient.execute(httpPost);
+            httpResponse = httpClient.execute(httpPost);
             HttpEntity entity = httpResponse.getEntity();
             String response = EntityUtils.toString(entity);
             LogUtil.log(response);
@@ -76,7 +82,7 @@ public class HttpRequest {
                 e1.printStackTrace();
             }
         }finally {
-                assert httpResponse != null;
+            assert httpResponse != null;
             try {
                 httpResponse.close();
             } catch (IOException e) {
@@ -84,4 +90,18 @@ public class HttpRequest {
             }
         }
     }
+
+
+    public InputStream postRequestWithJson(String url,String body) throws IOException {
+
+        CloseableHttpClient httpClient = getHttpClient();
+        HttpPost post = new HttpPost(url);
+        StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
+        post.setEntity(entity);
+        CloseableHttpResponse response = httpClient.execute(post);
+        HttpEntity httpEntity = response.getEntity();
+        InputStream stream = httpEntity.getContent();
+        return stream;
+    }
+
 }

@@ -1,7 +1,7 @@
 package com.lly.test;
 
 import com.lly.util.DownLoad;
-import com.lly.util.ReadFileToJson;
+import com.lly.read.ReadFileToJson;
 import org.json.JSONObject;
 import org.junit.Test;
 

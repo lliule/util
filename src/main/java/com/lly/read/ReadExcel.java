@@ -1,4 +1,4 @@
-package com.lly.wcs;
+package com.lly.read;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lly.common.HttpRequest;

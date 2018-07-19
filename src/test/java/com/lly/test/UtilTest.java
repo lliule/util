@@ -1,7 +1,7 @@
 package com.lly.test;
 
 import com.lly.common.LogUtil;
-import com.lly.util.Util;
+import com.lly.read.Read2String;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -73,7 +73,7 @@ public class UtilTest {
     @Test
     public void testReadFileToArray() throws FileNotFoundException {
         String file = "C:\\Users\\Administrator\\Desktop\\备份\\11.txt";
-        String[] strings = Util.readFileToArray(file);
+        String[] strings = Read2String.readFileToArray(file);
         out.println(Arrays.asList(strings));
         try {
             FileWriter writer = new FileWriter(file);

@@ -1,4 +1,4 @@
-package com.lly.wcs;
+package com.lly.read;
 
 public class ReadToArray {
 }
