@@ -13,6 +13,8 @@ import java.util.HashMap;
 public class GeneratorBuffer2Pdf {
 
     // 请求生成pdf
+    // params: htmlContent
+    // return :stream
     @Test
     public void generatorPdf() throws IOException {
         String file = "D:\\work\\智提分\\个性化答题卡.html";
@@ -33,6 +35,7 @@ public class GeneratorBuffer2Pdf {
         FileOutputStream outputStream = new FileOutputStream("test.pdf");
         byte[] temp = new byte[1024];
         while (inputStream.read(temp) > 0){
+            System.out.println("write file to : " +temp.length);
             outputStream.write(temp);
         }
         inputStream.close();
