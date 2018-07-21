@@ -17,6 +17,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -100,7 +101,8 @@ public class HttpRequest {
         post.setEntity(entity);
         CloseableHttpResponse response = httpClient.execute(post);
         HttpEntity httpEntity = response.getEntity();
-        InputStream stream = httpEntity.getContent();
+        byte[] bytes = EntityUtils.toByteArray(httpEntity);
+        ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
         return stream;
     }
 
