@@ -72,9 +72,7 @@ public class HttpRequest {
         try {
             httpResponse = httpClient.execute(httpPost);
             HttpEntity entity = httpResponse.getEntity();
-            String response = EntityUtils.toString(entity);
-            LogUtil.log(response);
-            out.println(response);
+            byte[] bytes = EntityUtils.toByteArray(entity);
         } catch (IOException e) {
             e.printStackTrace();
             try {

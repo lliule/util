@@ -18,9 +18,10 @@ public class ReadJsonTest {
 
     @Test
     public void testReadJsonObject() throws Exception {
-        List<JSONObject> list = ReadFileToJson.readJsonObjectList("G:/new1.json");
+        List<JSONObject> list = ReadFileToJson.readJsonObjectList("C:\\Users\\Admin\\Desktop\\paper.json");
         for(JSONObject object : list){
-            DownLoad.download((String)object.get("url"),(String)object.get("folder"),(String)object.get("fileName"));
+            System.out.println(object.get("exams"));
+//            DownLoad.download((String)object.get("url"),(String)object.get("folder"),(String)object.get("fileName"));
         }
     }
 }

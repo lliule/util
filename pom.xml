@@ -17,13 +17,13 @@
         </repository>
     </repositories>
 
-    <pluginRepositories>
+    <!--<pluginRepositories>
         <pluginRepository>
             <id>nexus</id>
             <name>Team Nexus Repository</name>
             <url>http://nexus.weichaishi.com/content/groups/public</url>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
 
     <properties>
@@ -105,12 +105,12 @@
         <!--</dependency>-->
 
         <!--javadoc 解析依赖-->
-        <dependency>
-            <groupId>com.sun</groupId>
-            <artifactId>tools</artifactId>
-            <scope>system</scope>
-            <systemPath>${java.home}/../lib/tools.jar</systemPath>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.sun</groupId>-->
+            <!--<artifactId>tools</artifactId>-->
+            <!--<scope>system</scope>-->
+            <!--<systemPath>${java.home}/../lib/tools.jar</systemPath>-->
+        <!--</dependency>-->
 
 
         <dependency>
