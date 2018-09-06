@@ -18,5 +18,4 @@ public class InnerClassSingleton {
         return InnerClassSingletonHolder.instance;
     }
 
-
 }

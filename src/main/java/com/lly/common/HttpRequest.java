@@ -38,7 +38,7 @@ public class HttpRequest {
         return HttpClients.createDefault();
     }
 
-    public void getRequest(String url){
+    public void getRequest(String url) throws IOException {
         CloseableHttpClient httpClient = getHttpClient();
         HttpGet httpGet = new HttpGet(url);
         CloseableHttpResponse httpResponse = null;
@@ -52,8 +52,9 @@ public class HttpRequest {
             e.printStackTrace();
         }finally {
             try {
-                assert httpResponse != null;
-                httpResponse.close();
+                if(httpResponse != null) {
+                    httpResponse.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
