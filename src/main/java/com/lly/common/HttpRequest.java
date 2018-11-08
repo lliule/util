@@ -3,7 +3,9 @@ package com.lly.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 public class HttpRequest {
 
@@ -46,8 +49,8 @@ public class HttpRequest {
             httpResponse = httpClient.execute(httpGet);
             HttpEntity entity = httpResponse.getEntity();
 //            EntityUtils.consume(entity);
-            String response = EntityUtils.toString(entity);
-            out.println(response);
+//            String response = EntityUtils.toString(entity);
+//            out.println(response);
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
@@ -55,36 +58,6 @@ public class HttpRequest {
                 if(httpResponse != null) {
                     httpResponse.close();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void postRequest(String url,String params) throws UnsupportedEncodingException {
-        CloseableHttpClient httpClient = getHttpClient();
-        HttpPost httpPost = new HttpPost(url);
-        ArrayList<NameValuePair> pairs = new ArrayList<>();
-        pairs.add(new BasicNameValuePair("param", params));
-        UrlEncodedFormEntity urlEncodedFormEntity = new UrlEncodedFormEntity(pairs);
-        httpPost.setHeader("Cookie","crowd=dana;yiusr=j%3A%7B%22yiusr%22%3A%22dana%22%7D;yisid=j%3A%7B%22yisid%22%3A%22xkqw6iygghrlc3uz7hzrfm5dc4fropfsm2e2qiav%22%7D");
-        httpPost.setEntity(urlEncodedFormEntity);
-        CloseableHttpResponse httpResponse = null;
-        try {
-            httpResponse = httpClient.execute(httpPost);
-            HttpEntity entity = httpResponse.getEntity();
-            byte[] bytes = EntityUtils.toByteArray(entity);
-        } catch (IOException e) {
-            e.printStackTrace();
-            try {
-                LogUtil.log(e.getStackTrace().toString());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }finally {
-            assert httpResponse != null;
-            try {
-                httpResponse.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -99,10 +72,37 @@ public class HttpRequest {
         StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
         post.setEntity(entity);
         CloseableHttpResponse response = httpClient.execute(post);
+        int statusCode = response.getStatusLine().getStatusCode();
+        response = redirect(httpClient, entity, response, statusCode);
         HttpEntity httpEntity = response.getEntity();
+//        System.out.println(EntityUtils.toString(httpEntity));;
         byte[] bytes = EntityUtils.toByteArray(httpEntity);
         ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
         return stream;
+    }
+
+    public String postToString(String url ,String body) throws IOException {
+        CloseableHttpClient httpClient = getHttpClient();
+        HttpPost post = new HttpPost(url);
+        StringEntity entity = new StringEntity(body, ContentType.APPLICATION_JSON);
+        post.setEntity(entity);
+        CloseableHttpResponse response = httpClient.execute(post);
+        int statusCode = response.getStatusLine().getStatusCode();
+        response = redirect(httpClient,entity,response,statusCode);
+        HttpEntity httpEntity = response.getEntity();
+        return EntityUtils.toString(httpEntity);
+    }
+
+    private CloseableHttpResponse redirect(CloseableHttpClient httpClient, StringEntity entity, CloseableHttpResponse response, int statusCode) throws IOException {
+        HttpPost post;
+        if(statusCode == HttpStatus.SC_MOVED_TEMPORARILY || statusCode == HttpStatus.SC_MOVED_PERMANENTLY){
+            Header location = response.getFirstHeader("location");
+            String newUrl = location.getValue();
+            post = new HttpPost(newUrl);
+            post.setEntity(entity);
+            response = httpClient.execute(post);
+        }
+        return response;
     }
 
 }

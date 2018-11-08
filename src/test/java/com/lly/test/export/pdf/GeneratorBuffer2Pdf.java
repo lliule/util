@@ -60,10 +60,10 @@ public class GeneratorBuffer2Pdf {
         long startTime = System.currentTimeMillis();
         ExecutorService service = Executors.newFixedThreadPool(10);
         ArrayList<Future<Boolean>> list = new ArrayList<>();
-        String file = "D:\\work\\ztf\\ans";
+        String file = "C:\\Users\\Admin\\Desktop\\layout";
         for(int j = 0 ;j < 10; j++) {
-            for (int i = 1; i < 21; i++) {
-                Future<Boolean> submit = service.submit(new Pdf(file + i + ".html", "test/test" + UUID.randomUUID().toString() + ".pdf"));
+            for (int i = 1; i < 20; i++) {
+                Future<Boolean> submit = service.submit(new Pdf(file + ".html", "test/test" + UUID.randomUUID().toString() + ".pdf"));
                 list.add(submit);
             }
         }

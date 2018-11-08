@@ -162,6 +162,5 @@ public class ReadExcel {
         String url = "http://120.27.148.138:3000/crowd/byAids";
 //        String url  = "http://localhost:3000/crowd/byAids";
         HttpRequest httpRequest = new HttpRequest();
-        httpRequest.postRequest(url,param);
     }
 }
