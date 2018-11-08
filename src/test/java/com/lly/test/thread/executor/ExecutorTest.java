@@ -19,7 +19,8 @@ public class ExecutorTest {
 				60L, TimeUnit.SECONDS,blockingQueue);
 
 		// 指定队列堆满时的策略： 丢弃最旧的队列信息。此时任务不会终止，但是队列会丢失。
-//		threadPoolExecutor = new ThreadPoolExecutor(3, 3,
+//		threadPoolExecutor = new ThreadPoolExecutor(3,
+
 //				1, TimeUnit.SECONDS, blockingQueue, new ThreadPoolExecutor.DiscardOldestPolicy());
 
 		// 关于队列堆满时的策略，有4中：终止，丢弃最旧的队列、丢弃策略和调用者饱和策略。丢弃策略表示不会再接受新的队列信息
@@ -67,8 +68,10 @@ public class ExecutorTest {
 	 *
 	 * 抛出异常：java.lang.OutOfMemoryError: GC overhead limit exceeded
 	 *
-	 * 这种OOM,是因为FixedThreadPool的任务队列没有限制，导致的，和CachedThreadPool的OOM不同。
-	 * CachedThreadPool产生OOM是因为线程池是可以无线创建造成的。{@link #testCachedThreadPool}
+	 * 这种OOM,是因为FixedThreadPool的任务队列没有限制导致的，当任务队列过大，jvm会启用GC尝试
+	 * 回收无用的垃圾数据，但是由于队列还被线程池拥有，无法被回收导致的OOM。
+	 * 和CachedThreadPool的OOM不同。
+	 * CachedThreadPool产生OOM是因为线程池是可以无线创建造成的堆栈空间OOM。{@link #testCachedThreadPool}
 	 */
 	@Test
 	public void testFixedThreadPool(){
