@@ -3,6 +3,7 @@ package com.lly.test.thread.executor;
 import org.junit.Test;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author leliu
@@ -96,7 +97,7 @@ public class ExecutorTest {
 	@Test
 	public void testCachedThreadPool(){
 		// 以下代码会 java.lang.OutOfMemoryError: Java heap space
-		// 但是偶发，不会想FixThreadPool那样
+		// 但是偶发，不会向FixThreadPool那样频发出现
 		ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 		do{
 			cachedThreadPool.execute(()->{
@@ -105,4 +106,28 @@ public class ExecutorTest {
 			});
 		}while (true);
 	}
+
+
+	/**
+	 * 自定义线程工厂，实现ThreadFactory接口
+	 */
+	@Test
+	public void testThreadFactory(){
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), new MyThreadFactory());
+		for (int i = 0; i < 100; i++) {
+			executor.execute(()->{
+				System.out.println(Thread.currentThread().getName());
+			});
+		}
+	}
+
+	static class MyThreadFactory implements ThreadFactory{
+		private static final AtomicInteger poolNum = new AtomicInteger(1);
+		@Override
+		public Thread newThread(Runnable r) {
+			return new Thread(r,"myThread--" + poolNum.getAndIncrement());
+		}
+	}
+
+
 }

@@ -1,5 +1,6 @@
 package com.lly.test.lang3;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -56,6 +57,8 @@ public class Lang3Test {
     public void testIsEmpty(){
         String test = "    ";
         System.out.println(StringUtils.isEmpty(test));
+        Boolean flag  = null;
+        System.out.println(BooleanUtils.isTrue(flag));
     }
 
 
