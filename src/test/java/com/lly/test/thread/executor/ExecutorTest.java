@@ -1,7 +1,11 @@
 package com.lly.test.thread.executor;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.junit.Test;
 
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -113,21 +117,91 @@ public class ExecutorTest {
 	 */
 	@Test
 	public void testThreadFactory(){
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), new MyThreadFactory());
+		// 自定义线程工厂方法1；
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10,
+				60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), new MyThreadFactory("main"));
+		// 自定义线程工厂方法2：
+		ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("demo-thread-%d").build();
+
+		ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 10,
+				60, TimeUnit.SECONDS, new ArrayBlockingQueue<>(100), threadFactory);
 		for (int i = 0; i < 100; i++) {
 			executor.execute(()->{
 				System.out.println(Thread.currentThread().getName());
 			});
 		}
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
+	/**
+	 * 自定义线程工厂
+	 */
 	static class MyThreadFactory implements ThreadFactory{
-		private static final AtomicInteger poolNum = new AtomicInteger(1);
+		private static  AtomicInteger poolNum = new AtomicInteger(1);
+		private String modelName;
+		public MyThreadFactory(String name){
+			this.modelName = name;
+		}
 		@Override
-		public Thread newThread(Runnable r) {
-			return new Thread(r,"myThread--" + poolNum.getAndIncrement());
+		public Thread newThread(@Nonnull Runnable r) {
+			return new Thread(r,"myThread--" + modelName + "-" + poolNum.getAndIncrement());
 		}
 	}
 
 
+	/**
+	 * SingleThreadExecutor
+	 * 创建唯一一个工作线程，去执行一个无限工作队列的队列任务。
+	 * 当当前工作线程异常终止，会再去生成一个线程继续执行队列的任务。确保任务会有一个且仅有一个执行
+	 *
+	 * 原理：创建ThreadPoolExecutor,指定最大线程数为1，当当先线程终止，queue中又有任务会自动创建线程执行任务队列
+	 *
+	 */
+	@Test
+	public void testSingleThread(){
+		/*ExecutorService executorService = Executors.newSingleThreadExecutor();
+		do{
+			executorService.execute(()->{
+				System.out.println(Thread.currentThread().getName());
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				int i = 1/0;
+			});
+		}while(true);
+*/
+
+		// 模拟 singleThread
+		LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
+		Runnable r1 = ()->{System.out.println(1);int i = 1/0;};
+		Runnable r2 = ()->{System.out.println(2);int i = 1/0;};
+		Runnable r3 = ()->{System.out.println(3);int i = 1/0;};
+		Runnable r4 = ()->{System.out.println(4);int i = 1/0;};
+		Runnable r5 = ()->{System.out.println(5);int i = 1/0;};
+		List<Runnable> runnableList = Arrays.asList(r1, r2, r3, r4, r5);
+
+		ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(1, 1,
+				0L, TimeUnit.MILLISECONDS, queue);
+
+		for (Runnable runnable : runnableList) {
+			threadPoolExecutor.execute(runnable);
+		}
+	}
+
+
+	@Test
+	public void testSchedulePool(){
+		Executors.newSingleThreadScheduledExecutor();
+	}
+
+
 }
+
+
+

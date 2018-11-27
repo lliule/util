@@ -20,13 +20,13 @@ public class ThreadPoolExecutorExtend extends ThreadPoolExecutor {
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-        System.out.println("before execute");
+        System.out.println("before execute [" + t.getName() + "]");
         super.beforeExecute(t, r);
     }
 
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
-        System.out.println("after execute");
+        System.out.println("after execute [" + Thread.currentThread().getName() + "]");
         super.afterExecute(r, t);
     }
 

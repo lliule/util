@@ -14,13 +14,16 @@ public class ExtendTest {
     }
 
     private static void testThreadPoolExecutorExtend() {
-        ThreadPoolExecutorExtend extend = new ThreadPoolExecutorExtend(10,
+        ThreadPoolExecutorExtend extend = new ThreadPoolExecutorExtend(3,
                 15, 10, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>());
 
-        extend.execute(()->{
-            System.out.println("running");
-        });
+        for(int i = 0;i < 10 ;i++){
+            final int temp = i;
+            extend.execute(()->{
+                System.out.println("running["+ temp +"]");
+            });
+        }
 
         if(!extend.isShutdown()){
             extend.shutdown();
