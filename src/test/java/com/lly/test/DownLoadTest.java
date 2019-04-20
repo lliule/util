@@ -6,6 +6,12 @@ import org.junit.Test;
 public class DownLoadTest {
 
     @Test
+    public void testUrl() throws Exception {
+        String url = "http://zhixuetest.oss-cn-hangzhou.aliyuncs.com/hanzhang_test/tfb/word/2018/12/04/南京高二年级英语组卷智提分试卷(B5)_28e7a925-e7d3-46f8-be31-10fb5b55e5db.docx";
+        DownLoad.download(url,"/temp","test.docx");
+    }
+
+    @Test
     public void testDownLoad() throws Exception {
         String[] urls = {
               "http://images.laba.cn/unilever/21016012_Q8A.png",
