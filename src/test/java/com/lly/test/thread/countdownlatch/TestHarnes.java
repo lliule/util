@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class TestHarnes {
     public long timeTasks(int nThreads, final Runnable task) throws InterruptedException {
-        final CountDownLatch startGate = new CountDownLatch(1);
+//        final CountDownLatch startGate = new CountDownLatch(1);
         final CountDownLatch endGate = new CountDownLatch(nThreads);
 
         for(int i =0; i< nThreads; i++){
@@ -12,13 +12,13 @@ public class TestHarnes {
                 @Override
                 public void run() {
                     try {
-                        startGate.await();
+//                        startGate.await();
                         try {
                             task.run();
                         } finally {
                             endGate.countDown();
                         }
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -26,7 +26,7 @@ public class TestHarnes {
             t.start();
         }
         long start =System.nanoTime();
-        startGate.countDown();
+//        startGate.countDown();
         endGate.await();
         System.out.println("end");
         long end = System.nanoTime();

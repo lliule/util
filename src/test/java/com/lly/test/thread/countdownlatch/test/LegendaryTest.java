@@ -12,11 +12,6 @@ public class LegendaryTest {
             public void run() {
                 System.out.println("readying ...");
             }
-        }, new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("kill the person");
-            }
         });
     }
 }
