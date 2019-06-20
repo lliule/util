@@ -1,0 +1,2 @@
+log=com.lly.spi.dubbo.service.LogSpiServiceImpl
+print=com.lly.spi.dubbo.service.PrintSpiServiceImpl
